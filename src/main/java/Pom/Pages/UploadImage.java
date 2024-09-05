@@ -1,14 +1,13 @@
-package Pages;
+package Pom.Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class DragImage {
+public class UploadImage {
     WebDriver driver;
     By file = By.name("file");
     By upload = By.id("file-submit");
-    public DragImage(WebDriver driver) {
+    public UploadImage(WebDriver driver) {
         this.driver = driver;
     }
     public void navigateHerokuappDragImage(){
@@ -18,8 +17,8 @@ public void uploadTheImage(String absoluteFile){
     driver.findElement(file).sendKeys(absoluteFile);
 }
 
-    public WebElement UploadedImage(){
-        return driver.findElement(upload);
+    public void UploadedImage(){
+        driver.findElement(upload).click();
     }
 
 }

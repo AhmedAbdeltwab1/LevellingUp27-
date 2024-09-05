@@ -1,7 +1,7 @@
-package Pages;
+package Pom.Pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,11 +14,13 @@ public class CheckBoxPage {
     public void navigateHerokuapp(){
         driver.navigate().to("http://the-internet.herokuapp.com/checkboxes");
     }
-    public WebElement Checkbox(){
-        WebElement checkBox = driver.findElement(checkbox);
-        return checkBox;
+    public void clickCheckbox(){
+        driver.findElement(checkbox).click();
+
     }
+    public boolean checkboxIsSelected(){
+       return driver.findElement(checkbox).isSelected();
 
-
+    }
 
 }

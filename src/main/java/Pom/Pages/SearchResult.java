@@ -1,4 +1,4 @@
-package Pages;
+package Pom.Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,13 +15,9 @@ public class SearchResult {
        return link;
     }
     public String getText(){
-        String text = driver.findElement(fourthLinkText).getText();
-        return text;
-    }
+        return driver.findElement(fourthLinkText).getText();
 
-//    public getText(){
-//
-//    }
+    }
 
 
 

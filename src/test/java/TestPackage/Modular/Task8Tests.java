@@ -1,9 +1,8 @@
 package TestPackage.Modular;
 
-import Pages.*;
+import Pom.Pages.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
@@ -20,7 +19,7 @@ public class Task8Tests {
     CheckBoxPage checkBoxPage;
     SearchResult searchResult;
     MapPage mapPage;
-    DragImage uploadImage;
+    UploadImage uploadImage;
     UploadedImageChecked uploadedImageChecked;
     DragAndDropPage dragAndDropPage;
 
@@ -33,13 +32,8 @@ public class Task8Tests {
      * Assert that the link of the first result is [https://www.selenium.dev/documentation/webdriver/]
      * Close Mozilla Firefox
      * #4
-     * ________________ Moderate ________________
-     * Open Mozilla Firefox
-     * Navigate to [https://duckduckgo.com/]
-     * Search for [TestNG]
-     * Assert that the text of the fourth result is [TestNG Tutorial]
-     * Close Mozilla Firefox
      */
+
     @Test
     public void testFirstResult() {
         String testData = "Selenium WebDriver";
@@ -51,7 +45,14 @@ public class Task8Tests {
         });
     }
 
-   /* @Test
+    /**
+     * Open Mozilla Firefox
+     * Navigate to [https://duckduckgo.com/]
+     * Search for [TestNG]
+     * Assert that the text of the fourth result is [TestNG Tutorial]
+     * Close Mozilla Firefox
+     */
+    @Test
     public void testFourthResult() {
         String testData = "TestNG";
         landingPage.search(testData);
@@ -60,7 +61,7 @@ public class Task8Tests {
             Assert.assertEquals(text, "TestNG Tutorial - GeeksforGeeks");
             return true;
         });
-    }*/
+    }
 
     /**
      * Open Google Chrome
@@ -69,14 +70,21 @@ public class Task8Tests {
      * Assert that both Checkboxes are checked
      * Close Google Chrome
      */
+//    @Test
+//    public void testIVerifyCheckbox() {
+//        checkBoxPage.navigateHerokuapp();
+//        wait.until(driver1 -> {
+//            checkBoxPage.Checkbox().click();
+//            assert checkBoxPage.Checkbox().isSelected();
+//            return true;
+//        });
+//    }
     @Test
     public void testIVerifyCheckbox() {
         checkBoxPage.navigateHerokuapp();
         wait.until(driver1 -> {
-            WebElement checkbox;
-            checkbox = checkBoxPage.Checkbox();
-            checkbox.click();
-            assert checkbox.isSelected();
+            checkBoxPage.clickCheckbox();
+            Assert.assertTrue(checkBoxPage.checkboxIsSelected());
             return true;
         });
     }
@@ -109,8 +117,7 @@ public class Task8Tests {
         uploadImage.navigateHerokuappDragImage();
         wait.until(d->{
             uploadImage.uploadTheImage(absoluteFile);
-            WebElement uploadTheRequiredImage = uploadImage.UploadedImage();
-            uploadTheRequiredImage.click();
+            uploadImage.UploadedImage();
             String checkUploadFile = uploadedImageChecked.UploadedImageGetText();
             Assert.assertEquals(checkUploadFile, "5.jpg");
             return true;
@@ -126,13 +133,10 @@ public class Task8Tests {
     @Test
     /*Why does the compiler make Exception when The URL at the bottom?*/
     public void testDragAndDrop(){
-        Actions actions = new Actions(driver);
         dragAndDropPage.navigateToDrageAndDropPage();
         wait.until(d->{
-            WebElement draggableObject = dragAndDropPage.draggable();
-            WebElement droppablePlace = dragAndDropPage.droppable();
-            actions.dragAndDrop(draggableObject,droppablePlace).perform();
-            Assert.assertEquals(droppablePlace.getText(),"Dropped!");
+            dragAndDropPage.dragAndDropPerform();
+            Assert.assertEquals(dragAndDropPage.getDroppablePlaceText(),"Dropped!");
             return true;
         });
 
@@ -146,7 +150,7 @@ public class Task8Tests {
         checkBoxPage = new CheckBoxPage(driver);
         landingPage.navigate();
         mapPage = new MapPage(driver);
-        uploadImage = new DragImage(driver);
+        uploadImage = new UploadImage(driver);
         uploadedImageChecked = new UploadedImageChecked(driver);
         dragAndDropPage = new DragAndDropPage(driver);
         driver.manage().window().setPosition(new Point(0, 0));
